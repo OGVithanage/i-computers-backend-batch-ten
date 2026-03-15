@@ -56,7 +56,8 @@ export async function loginUser(req, res) {
                     expiresIn: "48h"
                 });
                 res.json({
-                    token: token
+                    token: token,
+                    isAdmin: user.isAdmin
                 })
             } else {
                 res.status(401).json({
