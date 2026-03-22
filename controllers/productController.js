@@ -52,7 +52,7 @@ export async function getAllProducts(req, res) {
             const products = await Product.find()
             res.json(products)
         } else {
-            const product = await Product.find({ isAvailble: true })
+            const product = await Product.find({ isAvailable: true })
             res.json(product)
         }
     } catch (err) {
@@ -104,7 +104,7 @@ export async function updateProducts(req, res) {
             model: req.body.model,
             category: req.body.category,
             stock: req.body.status,
-            isAvailble: req.body.isAvailble
+            isAvailable: req.body.isAvailable
         }
         )
     } catch (err) {
@@ -125,7 +125,7 @@ export async function getProductById(req, res) {
         return
     }
     if (!isAdmin(req)) {
-        if (product.isAvailble !== true) {
+        if (product.isAvailable !== true) {
             res.status(401).json({
                 message: "unauthorized"
             })
