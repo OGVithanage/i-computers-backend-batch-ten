@@ -123,20 +123,24 @@ export async function getProductById(req, res) {
             message: "Product not found"
         })
         return
-    }
-    if (!isAdmin(req)) {
-        if (product.isAvailable !== true) {
-            res.status(401).json({
-                message: "unauthorized"
-            })
-            return
-        } else {
-            res.status(401).json({
-                message: "Unauthorized"
-            })
+    }else{
+        if(product.isAvailable){
+            return res.status(200).json(product);
         }
-    } else {
-        res.status(200).json(product)
-        return
+        if (!isAdmin(req)) {
+            if (product.isAvailable == false) {
+                res.status(401).json({
+                    message: "unauthorized"
+                })
+                return
+            } else {
+                res.status(401).json({
+                    message: "Unauthorized"
+                })
+            }
+        } else {
+            res.status(200).json(product)
+            return
+        }
     }
 }
